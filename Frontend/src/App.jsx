@@ -1,4 +1,3 @@
-import Header from './Header'
 import Nav from './Nav'
 import Employees from './Employees'
 import Footer from './Footer'
@@ -10,17 +9,12 @@ import './App.css'
 import { useState, useEffect } from 'react'//Import the Use State Hook
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-const x=async ()=>{
-  console.log("employees")
-  const employees=await EmployeesModel.find({})
-  console.log(employees)
-}
-x()
+
 const App=()=>{
 
   const [selectedTeam, setTeam] = useState(JSON.parse(localStorage.getItem('selectedTeam')) || "TeamA")//Destructoring assignment
-
   const [employees, setEmployees] = useState(JSON.parse(localStorage.getItem('employeeList')) || [{//Destructoring assignment
+
     id: 1,
     fullName: "Bob Jones",
     designation: "JavaScript Developer",
@@ -104,7 +98,6 @@ const App=()=>{
     gender: "male",
     teamName: "TeamD"
   }])
-
   useEffect(() => {//Use the useEffect hook to store JSON data in localStorage
     localStorage.setItem('employeeList', JSON.stringify(employees))
   }, [employees])
@@ -113,7 +106,6 @@ const App=()=>{
   }, [selectedTeam])
 
   const handleTeamSelectionChange = (event) => {
-    console.log(event.target.value)
     setTeam(event.target.value)//Change the Team state
   }
   const handleEmployeeCardClick = (event) => {
@@ -133,25 +125,24 @@ const App=()=>{
           return employee
         }
       })
-      console.log(transformedEmployees)
       setEmployees(transformedEmployees)
     }
   }
   return (
     <Router>
       <Nav></Nav>
-      <Header selectedItem={selectedTeam} teamMemberCount={employees.filter((employee) => employee.teamName === selectedTeam).length} />
       <Routes>
         <Route path="/" element={
-          <Employees employees={employees}
+          <Employees 
+            employees={employees}
             selectedTeam={selectedTeam}
             handleEmployeeCardClick={handleEmployeeCardClick}
             handleTeamSelectionChange={handleTeamSelectionChange}
-          />}>
-        </Route>
-        <Route path="/GroupTeamMembers" element={<GroupTeamMembers employees={employees} selectedTeam={selectedTeam} setTeam={setTeam} />}></Route>
-        <Route path="/addEmployees" element={<AddEmployees/>}></Route>
-        <Route path="*" element={<NotFound/>}></Route>
+          />}
+        />
+        <Route path="/GroupTeamMembers" element={<GroupTeamMembers employees={employees} selectedTeam={selectedTeam} setTeam={setTeam} />} />
+        <Route path="/addEmployees" element={<AddEmployees/>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Router>

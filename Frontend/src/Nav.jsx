@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 const Nav = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+    <nav className="bg-dark">
+      <ul id="navbar-nav" className="navbar-list">
         <div className='linkList' id='rightLinks'>
           <li className='nav-item '>
             <Link className="nav-link" to="/">Home</Link>

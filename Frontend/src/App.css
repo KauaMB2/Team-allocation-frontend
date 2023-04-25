@@ -11,6 +11,7 @@ body{
 h1,h2,h3,h4,h5,footer,p{
   text-align:center;
 }
+
 .divLittleIcons{
   padding-left: 5px;
   padding-right: 5px;
@@ -41,25 +42,47 @@ h1,h2,h3,h4,h5,footer,p{
   background-image: url('images/svgs/hoverSVGS/trashHover.svg');
 }
 #addEmployeeForm{
-  display: grid;
+  display: block;
   margin: auto;
-  padding: 10px;
   row-gap: 10px;
-  grid-template-rows: 1fr 1fr 1fr;
   width: 70%;
+}
+.nameField{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+}
+.nameField, .form-team-list, .form-position{
+  margin-bottom: 20px;
+}
+.row2{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 50px;
+  background-color: red;
 }
 .form-team-list{
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
 }
-#navbar-nav {
+#navbar-nav{
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
-
-
+li{
+  padding-bottom: 10px;
+  list-style-type: none;
+  color: #aaa;
+  font-size: 1rem;
+}
+li:hover{
+  color: #bfbfbf;
+}
 @media only screen and (max-width:600px){
   .card-collection{
     grid-template-columns: 1fr;
