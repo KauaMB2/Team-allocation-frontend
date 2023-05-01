@@ -17,27 +17,27 @@ const EditEmployee=({showCreateModal, setShowCreateModal})=>{
                 </Modal.Header>
                 <Modal.Body>
                     <form className='formEditEmployee animate__animated animate__fadeIn'>
-                        <div class="form-group">
-                            <label for="team-name" class="col-form-label">Name:</label>
-                            <input  type="text" class="form-control" id="team-name"/>
+                        <div className="form-group">
+                            <label for="team-name" className="col-form-label">Name:</label>
+                            <input  type="text" className="form-control" id="team-name"/>
                         </div>
 						<label className='addedTeamsLabel'>Added teams(Delete):</label>
 						<div className='checkBoxList'>
-							<div class="form-check">
-								<input class="form-check-input" onClick={handleCheckboxClicked} type="checkbox" value="" id="flexCheckDefault" defaultChecked/>
-								<label class="form-check-label" for="flexCheckDefault">Team A</label>
+							<div className="form-check">
+								<input className="form-check-input" onClick={handleCheckboxClicked} type="checkbox" defaultValue="" id="flexCheckDefault" defaultChecked/>
+								<label className="form-check-label" for="flexCheckDefault">Team A</label>
 							</div>
-							<div class="form-check" >
-								<input class="form-check-input" onClick={handleCheckboxClicked} type="checkbox" value="" id="flexCheckChecked" defaultChecked/>
-								<label class="form-check-label" for="flexCheckChecked">Team B</label>
+							<div className="form-check" >
+								<input className="form-check-input" onClick={handleCheckboxClicked} type="checkbox" defaultValue="" id="flexCheckChecked" defaultChecked/>
+								<label className="form-check-label" for="flexCheckChecked">Team B</label>
 							</div>
-							<div class="form-check">
-								<input class="form-check-input" onClick={handleCheckboxClicked} type="checkbox" value="" id="flexCheckDefault" defaultChecked/>
-								<label class="form-check-label" for="flexCheckDefault">Team C</label>
+							<div className="form-check">
+								<input className="form-check-input" onClick={handleCheckboxClicked} type="checkbox" defaultValue="" id="flexCheckDefault" defaultChecked/>
+								<label className="form-check-label" for="flexCheckDefault">Team C</label>
 							</div>
-							<div class="form-check" >
-								<input class="form-check-input" onClick={handleCheckboxClicked} type="checkbox" value="" id="flexCheckChecked" defaultChecked/>
-								<label class="form-check-label" for="flexCheckChecked">Team D</label>
+							<div className="form-check" >
+								<input className="form-check-input" onClick={handleCheckboxClicked} type="checkbox" defaultValue="" id="flexCheckChecked" defaultChecked/>
+								<label className="form-check-label" for="flexCheckChecked">Team D</label>
 							</div>
 						</div>
                     </form>
