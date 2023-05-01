@@ -1,0 +1,29 @@
+.divLittleIcons{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.littleIcon{
+    transition: 0.2s;
+    width: 1.3rem;
+    height: 1.3rem;;
+    background-size: cover;
+    background-position: center;
+}
+.littleIcon:hover {
+    width: 1.5rem;
+}
+#trashIcon{
+    background-image: url('../images/svgs/Trash.svg');
+}
+#settingsIcon{
+    background-image: url('../images/svgs/Settings.svg');
+}
+#settingsIcon:hover {
+    background-image: url('../images/svgs/hoverSVGS/settingsHover.svg');
+}
+#trashIcon:hover {
+    background-image: url('../images/svgs/hoverSVGS/trashHover.svg');
+}

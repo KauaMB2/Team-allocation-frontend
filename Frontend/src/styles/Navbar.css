@@ -1,0 +1,17 @@
+#navbar-nav{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+li{
+    padding-bottom: 10px;
+    list-style-type: none;
+    color: #aaa;
+    font-size: 1rem;
+}
+    li:hover{
+    color: #bfbfbf;
+}

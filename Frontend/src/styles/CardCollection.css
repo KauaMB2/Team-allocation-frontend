@@ -1,0 +1,12 @@
+.card-collection{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+}
+.standout{
+    box-shadow: rgba(0,0,0,0.4) 0px 1px 4px, rgb(51,255,51) 0px 0px 0px 3px;
+}
+@media only screen and (max-width:600px){
+        .card-collection{
+        grid-template-columns: 1fr;
+    }
+}

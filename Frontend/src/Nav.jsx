@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
-
-const Nav = () => {
+import CreateEmployeeModal from './CreateTeamModal'
+const Nav = ({setShowCreateModal, showCreateModal}) => {
+  const turnOnCreateModal=()=>{
+    setShowCreateModal(!showCreateModal)
+  }
   return (
     <nav className="bg-dark">
+      <CreateEmployeeModal setShowCreateModal={setShowCreateModal} showCreateModal={showCreateModal}></CreateEmployeeModal>
       <ul id="navbar-nav" className="navbar-list">
         <div className='linkList' id='rightLinks'>
           <li className='nav-item '>
@@ -17,7 +21,7 @@ const Nav = () => {
             <Link className='nav-link' to="/addEmployees">Add Employees</Link>
           </li>
           <li className='nav-item '>
-            <Link className='nav-link' to="/addTeams">Add Teams</Link>
+            <div className='nav-link' onClick={turnOnCreateModal}>Add Teams</div>
           </li>
         </div>
       </ul>

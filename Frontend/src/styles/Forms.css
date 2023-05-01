@@ -1,0 +1,54 @@
+#addEmployeeForm{
+    display: block;
+    margin: auto;
+    width: 70%;
+}
+.nameField{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+}
+.nameField, .form-team-list, .form-position, .designationField, .genderField{
+  margin-bottom: 20px;
+}
+.form-team-list{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.form-MaleFemaleChoice{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.formEditEmployee .form-MaleFemaleChoice{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+@media only screen and (max-width:810px){
+  .form-team-list{
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-MaleFemaleChoice{
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+.checkBoxList{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.addedTeamsLabel{
+  padding-top: 10px;
+}
+@media only screen and (max-width:400px){
+  .form-team-list{
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+  }
+  .form-MaleFemaleChoice{
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}

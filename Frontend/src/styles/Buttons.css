@@ -1,0 +1,15 @@
+.submitNewEmployee{
+  color: #292D3E;
+  background-color: white;
+  border: 1px solid #292D3E;
+  border-radius: 4px;
+  padding: 0 15px;
+  cursor: pointer;
+  height: 32px;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+.submitNewEmployee:hover {
+ box-shadow: 1px 1px #292D3E, 2px 2px #292D3E, 3px 3px #292D3E;
+ transform: translateX(-3px);
+}

@@ -1,24 +1,29 @@
-const AddEmployees=()=>{
-    return (
+import {Button, Modal} from 'react-bootstrap'
+
+const EditEmployee=({showEditModal, setShowEditModal, currentEmployee})=>{
+    const handleEdit=()=>{
+        setShowEditModal(!showEditModal)
+        //...
+    }
+    return(
         <>
-			<h1 className="animate__animated animate__fadeInDown">Adding new employees</h1>
-				<form id="addEmployeeForm">
-					<div className="nameField animate__animated animate__fadeInDown" >
-						<div>
-							<label>First name:</label>
-							<input type="text" className="form-control" placeholder="Ex: Bill"/>
-						</div>
-						<div>
-							<label>Last name:</label>
-							<input type="text" className="form-control" placeholder="Ex: Gates"/>
-						</div>
-					</div>
-					<div className="designationField animate__animated animate__fadeIn">
+            <Modal size="lg" show={showEditModal} onHide={()=>{setShowEditModal(!showEditModal)}}>
+                <Modal.Header className=' text-center bg-primary' closeButton>
+                    <Modal.Title className='modal-title w-100 font-weight-bold py-2'>EDIT AREA</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form className='formEditEmployee'>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Name:</label>
+                            <input value={(currentEmployee!=undefined) ? currentEmployee.fullName : ''} type="text" class="form-control" id="recipient-name"/>
+                        </div>
+                        
+                        <div className="designationField animate__animated animate__fadeIn">
 							<label id="designationLabel">Designation: </label>
 							<div className="form-team-list">
 								<div class="form-check">
 									<input class="form-check-input" type="radio" name="radio1" id="radio1"/>
-									<label class="form-check-label" >Python Developer</label>
+									<label class="form-check-label">Python Developer</label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input" type="radio" name="radio1" id="radio2"/>
@@ -70,7 +75,7 @@ const AddEmployees=()=>{
 									</div>
 									<div class="form-check">
 										<input class="form-check-input" type="radio" name="radio2" id="radio10"/>
-										<label class="form-check-label" >Other</label>
+										<label class="form-check-label">Other</label>
 									</div>
 									<div class="form-check">
 										<input class="form-check-input" type="radio" name="radio2" id="radio10"/>
@@ -78,20 +83,16 @@ const AddEmployees=()=>{
 									</div>
 								</div>
 							</div>
-							<div class="form-position animate__animated animate__fadeInUp">
-								<label>Team:</label>
-								<select id="inputState" className="form-control">
-									<option selected>Team A</option>
-									<option>Team B</option>
-									<option>Team C</option>
-									<option>Team D</option>
-									<option selected>...</option>
-								</select>
+
 							</div>
-					</div>
-					<button className="submitNewEmployee animate__animated animate__fadeInUp">Submit!</button >
-				</form>
-		</>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="btn btn-outline-secondary" onClick={()=>{setShowEditModal(!showEditModal)}}>Cancel</Button>
+                    <Button variant="btn btn-primary" onClick={handleEdit}>Edit!</Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     )
 }
-export default AddEmployees;
+export default EditEmployee

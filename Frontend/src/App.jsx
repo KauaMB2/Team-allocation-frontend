@@ -5,16 +5,23 @@ import NotFound from './NotFound'
 import GroupTeamMembers from './GroupTeamMembers'
 import AddEmployees from './AddEmployees'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
+import './styles/General.css'
+import './styles/CardCollection.css'
+import './styles/Forms.css'
+import './styles/Navbar.css'
+import './styles/Buttons.css'
+import './styles/Icons.css'
+import 'animate.css';
 import { useState, useEffect } from 'react'//Import the Use State Hook
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 
 const App=()=>{
-
+  const [showCreateModal,setShowCreateModal]=useState(false)
+  const [showTrashModal, setShowTrashModal]=useState(false)
+  const [showEditModal, setShowEditModal]=useState(false)
   const [selectedTeam, setTeam] = useState(JSON.parse(localStorage.getItem('selectedTeam')) || "TeamA")//Destructoring assignment
   const [employees, setEmployees] = useState(JSON.parse(localStorage.getItem('employeeList')) || [{//Destructoring assignment
-
     id: 1,
     fullName: "Bob Jones",
     designation: "JavaScript Developer",
@@ -130,7 +137,7 @@ const App=()=>{
   }
   return (
     <Router>
-      <Nav></Nav>
+      <Nav showCreateModal={showCreateModal} setShowCreateModal={setShowCreateModal}></Nav>
       <Routes>
         <Route path="/" element={
           <Employees 
@@ -138,9 +145,13 @@ const App=()=>{
             selectedTeam={selectedTeam}
             handleEmployeeCardClick={handleEmployeeCardClick}
             handleTeamSelectionChange={handleTeamSelectionChange}
+            showTrashModal={showTrashModal}
+            setShowTrashModal={setShowTrashModal} 
+            showEditModal={showEditModal}
+            setShowEditModal={setShowEditModal}
           />}
         />
-        <Route path="/GroupTeamMembers" element={<GroupTeamMembers employees={employees} selectedTeam={selectedTeam} setTeam={setTeam} />} />
+        <Route path="/GroupTeamMembers" element={<GroupTeamMembers employees={employees} selectedTeam={selectedTeam} setTeam={setTeam}/>} />
         <Route path="/addEmployees" element={<AddEmployees/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>

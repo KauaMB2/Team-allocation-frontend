@@ -48,7 +48,7 @@ const GroupTeamMembers = ({ employees, selectedTeam, setTeam }) => {
             selectedItem={selectedTeam} 
             teamMemberCount={employees.filter((employee) => employee.teamName === selectedTeam).length} 
         />
-      <main className="container">
+      <main className="container animate__animated animate__slideInDown">
         {
           groupedEmployees.map((item) => {
             return (

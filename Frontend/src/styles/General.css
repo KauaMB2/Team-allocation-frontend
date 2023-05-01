@@ -1,0 +1,9 @@
+body{
+  font-family:Arial;
+}
+h1,h2,h3,h4,h5,footer,p{
+  text-align:center;
+}
+.modal-title{
+  color: white;
+}

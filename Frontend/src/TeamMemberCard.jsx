@@ -1,12 +1,20 @@
 import femaleProfile from './images/profileIcons/femaleProfile.png'
 import maleProfile from './images/profileIcons/maleProfile.png'
-
-const TeamMemberCard=({employee, handleEmployeeCardClick, selectedTeam})=>{
+const TeamMemberCard=({employee, handleEmployeeCardClick, selectedTeam, setShowTrashModal, showTrashModal, setCurrentEmployee, showEditModal, setShowEditModal})=>{
+  const turnOnTrashModel=()=>{
+    setCurrentEmployee(employee)
+    setShowTrashModal(!showTrashModal)
+  }
+  const turnOnEditModel=()=>{
+    setCurrentEmployee(employee)
+    setShowEditModal(!showEditModal)
+    console.log(showEditModal)
+  }
   return(
-    <div key={employee.id} id={employee.id} className={(employee.teamName === selectedTeam ? 'card m-2 standout' : 'card m-2')} style={{ cursor: "pointer" }} onClick={handleEmployeeCardClick}>
+    <div key={employee.id} id={employee.id} className={(employee.teamName === selectedTeam ? 'card m-2 standout animate__animated  animate__fadeIn' : 'card m-2 animate__animated animate__fadeIn')} style={{ cursor: "pointer" }} onClick={handleEmployeeCardClick}>
       <div className='divLittleIcons'>
-        <div id="settingsIcon" className='littleIcon'></div>
-        <div id="trashIcon" className='littleIcon'></div>
+        <div type="button" id="settingsIcon" className='littleIcon' onClick={turnOnEditModel}></div>
+        <div type="button" id="trashIcon" className='littleIcon' onClick={turnOnTrashModel}></div>
       </div>
       {(employee.gender === "female") ? (
       <img src={femaleProfile} className="card-img-top" />

@@ -2,7 +2,7 @@ import Teams from './Teams'
 import TeamMembers from './TeamMembers'
 import Header from './Header'
 
-const Employees = ({ employees, selectedTeam, handleEmployeeCardClick, handleTeamSelectionChange }) => {
+const Employees = ({ employees, selectedTeam, handleEmployeeCardClick, handleTeamSelectionChange, setShowTrashModal, showTrashModal, showEditModal, setShowEditModal}) => {
   return (
     <>
       <Header 
@@ -15,7 +15,7 @@ const Employees = ({ employees, selectedTeam, handleEmployeeCardClick, handleTea
           <div className="col-8">
             <div className="card-collection">
               {
-                <TeamMembers employees={employees} handleEmployeeCardClick={handleEmployeeCardClick} selectedTeam={selectedTeam}/>
+                <TeamMembers employees={employees} handleEmployeeCardClick={handleEmployeeCardClick} selectedTeam={selectedTeam} showTrashModal={showTrashModal} setShowTrashModal={setShowTrashModal} setShowEditModal={setShowEditModal} showEditModal={showEditModal}/>
               }
             </div>
           </div>
