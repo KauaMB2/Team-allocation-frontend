@@ -1,11 +1,22 @@
 const mongoose=require('mongoose')
 
 const EmployeesDataSchema=new mongoose.Schema({
-    id:Int16Array,
-    fullName:String,
-    designation:String,
-    gender:String,
-    teamName:Boolean
-})
+    fullName:{
+        type: String,
+        unique: true,
+        required:true,
+    },
+    designation:{
+        type: String,
+        required:true,
+    },
+    gender:{
+        type: String,
+        required:true,
+    },
+    teamName:{
+        type: String,
+    },
+},{collection: 'employeesData'})
 
 module.exports=mongoose.model('Employees',EmployeesDataSchema)
