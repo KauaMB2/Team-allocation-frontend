@@ -4,7 +4,7 @@ const TeamController=require('./controllers/TeamController')//Get the functions 
 
 routes.post('/addEmployee',TeamController.addNewEmployee)//Post function
 routes.get('/getEmployeesData',TeamController.getData)//Get function
-routes.delete('/removeEmployee/:id',TeamController.deleteEmployee)//Delete function
+routes.delete('/removeEmployee/:fullName',TeamController.deleteEmployee)//Delete function
 routes.put('/updateEmployeeData/:id',TeamController.updateEmployeeData)//Update the employees data in DB
-
+routes.patch('/changeTeam/:id',TeamController.changeTeam)
 module.exports=routes

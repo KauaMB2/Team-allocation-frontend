@@ -7,7 +7,6 @@ const EditEmployee=({showCreateModal, setShowCreateModal})=>{
 	const handleCheckboxClicked=(event)=>{
 		var currentCheckbox={... event.target}
 		currentCheckbox.checked=!currentCheckbox.checked
-		console.log(currentCheckbox.checked)
 	}
     return(
         <>

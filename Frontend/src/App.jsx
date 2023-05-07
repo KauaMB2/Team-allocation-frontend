@@ -12,6 +12,7 @@ import './styles/Navbar.css'
 import './styles/Buttons.css'
 import './styles/Icons.css'
 import 'animate.css';
+import api from './services/api'
 import { useState, useEffect } from 'react'//Import the Use State Hook
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
@@ -21,118 +22,71 @@ const App=()=>{
   const [showTrashModal, setShowTrashModal]=useState(false)
   const [showEditModal, setShowEditModal]=useState(false)
   const [selectedTeam, setTeam] = useState(JSON.parse(localStorage.getItem('selectedTeam')) || "TeamA")//Destructoring assignment
-  const [employees, setEmployees] = useState(JSON.parse(localStorage.getItem('employeeList')) || [{//Destructoring assignment
-    id: 1,
-    fullName: "Bob Jones",
-    designation: "JavaScript Developer",
-    gender: "male",
-    teamName: "TeamA"
-  },
-  {
-    id: 2,
-    fullName: "Jill Bailey",
-    designation: "Node Developer",
-    gender: "female",
-    teamName: "TeamA"
-  },
-  {
-    id: 3,
-    fullName: "Gail Shepherd",
-    designation: "Java Developer",
-    gender: "female",
-    teamName: "TeamA"
-  },
-  {
-    id: 4,
-    fullName: "Sam Reynolds",
-    designation: "React Developer",
-    gender: "male",
-    teamName: "TeamB"
-  },
-  {
-    id: 5,
-    fullName: "David Henry",
-    designation: "DotNet Developer",
-    gender: "male",
-    teamName: "TeamB"
-  },
-  {
-    id: 6,
-    fullName: "Sarah Blake",
-    designation: "SQL Server DBA",
-    gender: "female",
-    teamName: "TeamB"
-  },
-  {
-    id: 7,
-    fullName: "James Bennet",
-    designation: "Angular Developer",
-    gender: "male",
-    teamName: "TeamC"
-  },
-  {
-    id: 8,
-    fullName: "Jessica Faye",
-    designation: "API Developer",
-    gender: "female",
-    teamName: "TeamC"
-  },
-  {
-    id: 9,
-    fullName: "Lita Stone",
-    designation: "C++ Developer",
-    gender: "female",
-    teamName: "TeamC"
-  },
-  {
-    id: 10,
-    fullName: "Daniel Young",
-    designation: "Python Developer",
-    gender: "male",
-    teamName: "TeamD"
-  },
-  {
-    id: 11,
-    fullName: "Adrian Jacobs",
-    designation: "Vue Developer",
-    gender: "male",
-    teamName: "TeamD"
-  },
-  {
-    id: 12,
-    fullName: "Devin Monroe",
-    designation: "Graphic Designer",
-    gender: "male",
-    teamName: "TeamD"
-  }])
-  useEffect(() => {//Use the useEffect hook to store JSON data in localStorage
-    localStorage.setItem('employeeList', JSON.stringify(employees))
-  }, [employees])
+  const [employees, setEmployees] = useState([])//Destructoring assignment
+  const fetchEmployees = async () => {
+    const employeesList = await api.get("/getEmployeesData")//Get all the employees
+    setEmployees(employeesList.data)
+    return employeesList.data
+  }
+  useEffect(() => {
+    fetchEmployees()
+  }, [])//It is ran just when the page is loaded
   useEffect(() => {//Use the useEffect hook to store JSON data in localStorage
     localStorage.setItem('selectedTeam', JSON.stringify(selectedTeam))
-  }, [selectedTeam])
-
+  }, [selectedTeam])//It is ran every time the selectedTeam var is modified
+  const handleEditEmployee=async (event)=>{
+		event.preventDefault()//It doesnt allow the page be reloaded after submit
+    const formData = new FormData(event.target)//Get the form object
+		const fullName = formData.get("fullName")//Get form data
+    const designation = formData.get("designation")//Get form data
+    const gender = formData.get("gender")//Get form data
+    const id=formData.get("_id")//Get hidden data
+    const employeeEdited=await api.put(`/updateEmployeeData/${id}`,{fullName:fullName,designation:designation,gender:gender})
+    if(!(designation==null)&&!(gender==null)){//If the gender and the designation was selected
+      setShowEditModal(!showEditModal)//toggle the modal
+    }
+    fetchEmployees()//Update the screen
+    return employeeEdited.data
+  }
+  const handleNewEmployeeSubmit=async (event)=>{
+    event.preventDefault()//It doenst allow the page be reloaded after the submit
+    const formData = new FormData(event.target)//Get the form object
+    const firstName = formData.get("firstName")//Get form data
+    const lastName = formData.get("lastName")//Get form data
+    const designation = formData.get("designation")//Get form data
+    const gender = formData.get("gender")//Get form data
+    const team = formData.get("team")//Get form data
+    const jsonData={fullName:firstName+" "+lastName, designation:designation, gender:gender, teamName:team}
+    const employeeCreated=await api.post('/addEmployee',jsonData)//Add data in DB
+    setTimeout(() => {//Reload the page after 0,05s
+      location.reload()//Reload the page
+    }, 50)
+    return employeeCreated.data
+  }
+  const handleDelete=async (currentEmployeeName)=>{
+    const deletedEmployee=await api.delete(`/removeEmployee/${currentEmployeeName}`)//Remove register
+    fetchEmployees()//Update the employees list
+    return deletedEmployee
+  }
   const handleTeamSelectionChange = (event) => {
     setTeam(event.target.value)//Change the Team state
   }
-  const handleEmployeeCardClick = (event) => {
-    if(event.target.id){
-      console.log(event.target.id)
-    }
-    else{
-      const transformedEmployees = employees.map((employee) =>{
-        console.log(event.target.className)
-        if(employee.id === parseInt(event.currentTarget.id)){
+  const handleEmployeeCardClick = async (event) => {
+    if(!event.target.id){//If the card was clicked(Not the icons)
+      const transformedEmployees = employees.map(async (employee) =>{
+        if(employee._id == event.currentTarget.id){
           if (employee.teamName === selectedTeam){
-            return {...employee, teamName:''}
-          } else{
-            return {...employee,teamName: selectedTeam}
+            const modifiedEmployee=await api.patch(`/changeTeam/${employee._id}/`, {currentTeam: " "})
+            return modifiedEmployee.data
+          }else{
+            const modifiedEmployee=await api.patch(`/changeTeam/${employee._id}/`, {currentTeam: selectedTeam})
+            return modifiedEmployee.data
           }
         }else{
           return employee
         }
       })
-      setEmployees(transformedEmployees)
+      setEmployees(await Promise.all(transformedEmployees))//it waits the function return the promise
     }
   }
   return (
@@ -149,10 +103,12 @@ const App=()=>{
             setShowTrashModal={setShowTrashModal} 
             showEditModal={showEditModal}
             setShowEditModal={setShowEditModal}
+            handleDelete={handleDelete}
+            handleEditEmployee={handleEditEmployee}
           />}
         />
         <Route path="/GroupTeamMembers" element={<GroupTeamMembers employees={employees} selectedTeam={selectedTeam} setTeam={setTeam}/>} />
-        <Route path="/addEmployees" element={<AddEmployees/>} />
+        <Route path="/addEmployees" element={<AddEmployees handleNewEmployeeSubmit={handleNewEmployeeSubmit}/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
